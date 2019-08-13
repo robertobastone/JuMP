@@ -1,101 +1,49 @@
 #########################
 
-# author: Roberto Bastone
-# email: robertobastone93@gmail.com
+author = "Roberto Bastone"
+email = "robertobastone93@gmail.com"
+version = 1.02
 
-version = 1.1
+#########################
+yes = ["Yes","yes","YES","Y","y"]
+no = ["No","no","NO","N","n"]
 
-using AstroLib
-using Dates
-
-today = datetime2julian(Dates.today())
-# code
-
-println("Welcome to JUlia Moon Phase (JuMP) ", version)
-println("JuMP is going to tell the phase of the moon for a certain day.")
-println("Type the year (format yyyy)")
-year = readline()
-year = parse(Int32, year)
-println("Type the month (format mm)")
-month = readline()
-month = parse(Int32, month)
-println("Type the day (format dd)")
-day = readline()
-day = parse(Int32, day)
-jd = jdcnv(year, month, day)
+functionalities = Dict("1" => "date", "999" => "quit")
 
 
-if 0 < AstroLib.mphase(jd)*100 < 1
-	if today > jd
-		println("On ",year,"/",month,"/",day," there was a new moon.")
-	elseif today == jd
-		println("On ",year,"/",month,"/",day," there is be a new moon.")
-	elseif today < jd
-		println("On ",year,"/",month,"/",day," there will be a new moon.")
-	end
-elseif 1 <= AstroLib.mphase(jd)*100 < 49
-	if AstroLib.mphase(jd) > AstroLib.mphase(jd-1)
-		if today > jd 
-			println("On ",year,"/",month,"/",day," there was be a waxing crescent.")
-		elseif today == jd 
-			println("On ",year,"/",month,"/",day," there is a waxing crescent.")
-		elseif today < jd 
-			println("On ",year,"/",month,"/",day," there will be a waxing crescent.")
-		end
-	else 
-		if today > jd 
-			println("On ",year,"/",month,"/",day," there was be a waning crescent.")
-		elseif today == jd 
-			println("On ",year,"/",month,"/",day," there is a waning crescent.")
-		elseif today < jd 
-			println("On ",year,"/",month,"/",day," there will be a waning crescent.")
-		end
-	end
-	println("Only ",  round( AstroLib.mphase(jd)*100) , "% of the Moon illuminated")
-elseif 49 <= AstroLib.mphase(jd)*100 < 51
-	if AstroLib.mphase(jd) > AstroLib.mphase(jd-1)
-		if today > jd 
-			println("On ",year,"/",month,"/",day," there was a first quarter.")
-		elseif today == jd 
-			println("On ",year,"/",month,"/",day," there is a first quarter.")
-		elseif today < jd 
-			println("On ",year,"/",month,"/",day," there will be a first quarter.")
-		end
-	else 
-		if today > jd 
-			println("On ",year,"/",month,"/",day," there was a last quarter.")
-		elseif today == jd 
-			println("On ",year,"/",month,"/",day," there is a last quarter.")
-		elseif today < jd 
-			println("On ",year,"/",month,"/",day," there will be a last quarter.")
-		end
-	end
-	println("And ",  round( AstroLib.mphase(jd)*100) , "% of the Moon illuminated")
-elseif 51 <= AstroLib.mphase(jd)*100 < 99
-	if AstroLib.mphase(jd) > AstroLib.mphase(jd-1)
-		if today > jd 
-			println("On ",year,"/",month,"/",day," there was a waxing gibbous.")
-		elseif today == jd 
-			println("On ",year,"/",month,"/",day," there is a waxing gibbous.")
-		elseif today < jd 
-			println("On ",year,"/",month,"/",day," there will be a waxing gibbous.")
-		end
+######################### CODE
+printstyled("Welcome to JUlia Moon Phase (JuMP) version " * string(version) * "\n",color=:blue)
+printstyled("(Author: " * author * ") \n",color=:blue)
+printstyled("For info - or anything else - please, feel free to reach me at " * email * "\n",color=:blue)
+
+while true
+	printstyled("JuMP yields several functionalities. Would you like me to describe them for you? [y/n] ",color=:blue)
+	choice = readline()
+	if any(x->x==choice, yes)
+		printstyled("By typing \"date\", JuMP will ask you a date (format yyyy/mm/dd) and tell you the moon phase of that given date. \n",color=:blue)
+		printstyled("Typing \"quit\" will terminate the execution of the script. \n",color=:blue)
+		break
+	elseif any(x->x==choice, no)
+		printstyled("Okay, let us continue. \n",color=:blue)
+		break
 	else
-		if today > jd 
-			println("On ",year,"/",month,"/",day," there was a waning gibbous.")
-		elseif today == jd 
-			println("On ",year,"/",month,"/",day," there is a waning gibbous.")
-		elseif today < jd 
-			println("On ",year,"/",month,"/",day," there will be a waning gibbous.")
-		end 
+		printstyled("Invalid input. \n",color=:yellow)
+		continue
 	end
-	println("And ",  round( AstroLib.mphase(jd)*100), "% of the Moon illuminated")
-else 
-	if today > jd 
-		println("On ",year,"/",month,"/",day," there was a full moon.")
-	elseif today == jd 
-		println("On ",year,"/",month,"/",day," there is a full moon.")
-	elseif today < jd 
-		println("On ",year,"/",month,"/",day," there will be a full moon.")
+end
+
+while true
+	println("What functionality do you choose?")
+	funct = readline()
+	if ( funct == functionalities["1"] )
+		include("JuMP_date.jl")
+		break
+	elseif( funct == functionalities["999"])
+	        printstyled("Terminating... JUlia Moon Phase version " * string(version) *"\n",color=:blue)
+		printstyled("If you find any bug, please do not hesitate to contact me at " * email * "\n",color=:blue)
+		break
+	else
+		printstyled("Invalid input. \n",color=:yellow)
+		continue
 	end
 end
