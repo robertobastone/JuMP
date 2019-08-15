@@ -12,14 +12,14 @@ using Dates
 
 ######################### DEFINE VARIABLE
 
-today = datetime2julian(Dates.today())
 new_moon = 1
 crescent_moon = 49
 quarter_moon = 51
 gibbous_moon = 99
 
 
-function main()
+function main_date()
+	today = datetime2julian(Dates.today())
 	julianInputDate, inputDate = choosingTheDate()
 	lookingAtTheMoon(today,julianInputDate, inputDate)
 end
@@ -88,13 +88,16 @@ function chooseTheDay()
 end
 
 function lookingAtTheMoon(today,jd, inputDate)
-	if 0 < AstroLib.mphase(jd)*100 < new_moon
+	println(jd)
+	illuminatedmoon = AstroLib.mphase(jd)*100
+	println(illuminatedmoon)
+	if 0 < illuminatedmoon < new_moon
 		newMoon(today, jd, inputDate)
-	elseif new_moon <= AstroLib.mphase(jd)*100 < crescent_moon
+	elseif new_moon <= illuminatedmoon < crescent_moon
 		crescentMoon(today,jd, inputDate)
-	elseif crescent_moon <= AstroLib.mphase(jd)*100 < quarter_moon
+	elseif crescent_moon <= illuminatedmoon < quarter_moon
 		quarterMoon(today,jd, inputDate)
-	elseif quarter_moon <= AstroLib.mphase(jd)*100 < gibbous_moon
+	elseif quarter_moon <= illuminatedmoon < gibbous_moon
 		gibbousMoon(today,jd, inputDate)
 	else 
 		fullMoon(today,jd, inputDate)
@@ -108,7 +111,7 @@ function newMoon(today, jd, inputDate)
 	if today > jd
 		println("On ",y,"/",m,"/",d," there was a new moon.")
 	elseif today == jd
-		println("On ",y,"/",m,"/",d," there is be a new moon.")
+		println("On ",y,"/",m,"/",d," there is a new moon.")
 	elseif today < jd
 		println("On ",y,"/",m,"/",d," there will be a new moon.")
 	end
