@@ -7,6 +7,8 @@ JUlia Moon Phase (JuMP) is a Julia script that calculates the moon phase in a gi
 # Milestones 
 1. November, 1 2018: JuMP
    - minimally funtioning code
+2. August, 15, 2019: JuMP
+   - added multiple functionalities
 
 # Versions
 ## Version 1.00 (November, 1 2018)
@@ -17,3 +19,5 @@ JUlia Moon Phase (JuMP) is a Julia script that calculates the moon phase in a gi
 - Improved code structure of main file
 ## Version 1.03 (August, 15 2019)
 - Improved code structure of submodule "JuMP_date.jl" and added try/catch statements for date data entry
+## Version 1.04 (August, 15 2019)
+- Added functionality "fullmoon" and "lightcurve"
