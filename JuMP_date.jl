@@ -19,8 +19,14 @@ gibbous_moon = 99
 
 function main_date()
 	today = datetime2julian(Dates.today())
+	introduction_date()
 	julianInputDate, inputDate = choosingTheDate()
 	lookingAtTheMoon(today,julianInputDate, inputDate)
+end
+
+function introduction_date()
+	printstyled("Welcome to JuMP \"date\" functionality version $version.\n",color=:blue)
+	printstyled("JuMP is going to tell when the moon phase at a given day. \n",color=:blue)
 end
 
 function choosingTheDate()
@@ -123,17 +129,17 @@ function crescentMoon(today, jd, inputDate)
 	if AstroLib.mphase(jd) > AstroLib.mphase(jd-1)
 		if today > jd
 			println("On ",y,"/",m,"/",d," there was be a waxing crescent.")
-		elseif today == inputDate
+		elseif today == jd
 			println("On ",y,"/",m,"/",d," there is a waxing crescent.")
-		elseif today < inputDate
+		elseif today < jd
 			println("On ",y,"/",m,"/",d," there will be a waxing crescent.")
 		end
 	else
-		if today > inputDate
+		if today > jd
 			println("On ",y,"/",m,"/",d," there was be a waning crescent.")
-		elseif today == inputDate
+		elseif today == jd
 			println("On ",y,"/",m,"/",d," there is a waning crescent.")
-		elseif today < inputDate
+		elseif today < jd
 			println("On ",y,"/",m,"/",d," there will be a waning crescent.")
 		end
 	end
@@ -147,9 +153,9 @@ function quarterMoon(today, jd, inputDate)
 	if AstroLib.mphase(jd) > AstroLib.mphase(jd-1)
 		if today > jd
 			println("On ",y,"/",m,"/",d," there was a first quarter.")
-		elseif today == inputDate
+		elseif today == jd
 			println("On ",y,"/",m,"/",d," there is a first quarter.")
-		elseif today < inputDate
+		elseif today < jd
 			println("On ",y,"/",m,"/",d," there will be a first quarter.")
 		end
 	else
