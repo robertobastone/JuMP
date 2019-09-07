@@ -34,7 +34,7 @@ end
 function chooseLightCurve()
 	printstyled("Choose what kind of \"lightcurve\" you want to plot.\n",color=:blue)
 	while true
-		printstyled("Before we start, would you like me to describe them for you? [y/n] \n",color=:blue)
+		printstyled("Before we start, would you like me to describe them to you? [y/n] \n",color=:blue)
 		choice = readline()
 		if any(x->x==choice, yes)
 			printstyled("By typing \"future\", JuMP will plot the lightcurve from today onwards. \n",color=:blue)
@@ -72,9 +72,13 @@ function makeLightCurve(choice)
 	time_period = 0
 	while true
 		try
-			printstyled("For how many days do you want to track the lightcurve\n",color=:blue)
+			printstyled("How many days do you want to keep track of the moon lightcurve?\n",color=:blue)
 			time_period = readline()
 			time_period = parse(Int32, time_period)
+			if time_period <= 0
+				printstyled("Time period must be greater than zero. \n",color=:red)
+				continue
+			end
 			break
 		catch
 			printstyled("This is not an integer. \n",color=:red)

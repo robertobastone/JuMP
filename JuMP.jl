@@ -53,7 +53,7 @@ end
 
 function jumpDescription()
 	while true
-		printstyled("JuMP yields several functionalities. Would you like me to describe them for you? [y/n] \n",color=:blue)
+		printstyled("JuMP yields several functionalities. Would you like me to describe them to you? [y/n] \n",color=:blue)
 		choice = readline()
 		if any(x->x==choice, allJuMPfunctionalities.yes)
 			printstyled("By typing \"date\", JuMP will ask you a date (format yyyy/mm/dd) and tell you the moon phase of that given date. \n",color=:blue)
