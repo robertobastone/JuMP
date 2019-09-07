@@ -14,8 +14,6 @@ AstroLibVersion = v"0.4.0"
 using Dates
 
 #########################
-yes = ["Yes","yes","YES","Y","y"]
-no = ["No","no","NO","N","n"]
 
 functionalities = Dict("1" => "date", "2" => "fullmoon", "3" => "lightcurve", "999" => "quit")
 packagesRequirements = Dict("AstroLib"=>AstroLibVersion,"PyPlot"=>PyPlotVersion)
@@ -55,15 +53,15 @@ end
 
 function jumpDescription()
 	while true
-		printstyled("JuMP yields several functionalities. Would you like me to describe them for you? [y/n] ",color=:blue)
+		printstyled("JuMP yields several functionalities. Would you like me to describe them for you? [y/n] \n",color=:blue)
 		choice = readline()
-		if any(x->x==choice, yes)
+		if any(x->x==choice, allJuMPfunctionalities.yes)
 			printstyled("By typing \"date\", JuMP will ask you a date (format yyyy/mm/dd) and tell you the moon phase of that given date. \n",color=:blue)
 			printstyled("By typing \"fullmoon\", JuMP will tell you when the next full moon will occur. \n",color=:blue)
 			printstyled("By typing \"lightcurve\", JuMP will ask you two dates (format yyy/mm/dd) and plot a lightcurve-like plot over that time span. \n",color=:blue)
 			printstyled("Typing \"quit\" will terminate the execution of the script. \n",color=:blue)
 			break
-		elseif any(x->x==choice, no)
+		elseif any(x->x==choice, allJuMPfunctionalities.no)
 			printstyled("Okay, let us continue. \n",color=:blue)
 			break
 		else
@@ -76,7 +74,7 @@ end
 function chooseFunctionality()
 	while true
 		println("What functionality do you choose? (type quit to terminate execution)")
-		funct = readline()
+		funct = lowercase(readline())
 		if ( funct == functionalities["1"] )
 			allJuMPfunctionalities.main_date()
 			continue
