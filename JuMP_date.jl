@@ -8,7 +8,6 @@ version = 1.02
 ######################### IMPORT
 
 using AstroLib
-using Dates
 
 ######################### DEFINE VARIABLE
 
@@ -45,7 +44,7 @@ function chooseTheYear()
 			break
 		catch
 			printstyled("This is not an integer. \n",color=:red)
-			continue	
+			continue
 		end
 	end
 	return year
@@ -65,7 +64,7 @@ function chooseTheMonth()
 			break
 		catch
 			printstyled("This is not an integer. \n",color=:red)
-			continue	
+			continue
 		end
 	end
 	return month
@@ -81,16 +80,16 @@ function chooseTheDay()
 			break
 		catch
 			printstyled("This is not an integer. \n",color=:red)
-			continue	
+			continue
 		end
 	end
 	return day
 end
 
 function lookingAtTheMoon(today,jd, inputDate)
-	println(jd)
+	#println(jd)
 	illuminatedmoon = AstroLib.mphase(jd)*100
-	println(illuminatedmoon)
+	#println(illuminatedmoon)
 	if 0 < illuminatedmoon < new_moon
 		newMoon(today, jd, inputDate)
 	elseif new_moon <= illuminatedmoon < crescent_moon
@@ -99,7 +98,7 @@ function lookingAtTheMoon(today,jd, inputDate)
 		quarterMoon(today,jd, inputDate)
 	elseif quarter_moon <= illuminatedmoon < gibbous_moon
 		gibbousMoon(today,jd, inputDate)
-	else 
+	else
 		fullMoon(today,jd, inputDate)
 	end
 end
@@ -124,17 +123,17 @@ function crescentMoon(today, jd, inputDate)
 	if AstroLib.mphase(jd) > AstroLib.mphase(jd-1)
 		if today > jd
 			println("On ",y,"/",m,"/",d," there was be a waxing crescent.")
-		elseif today == inputDate 
+		elseif today == inputDate
 			println("On ",y,"/",m,"/",d," there is a waxing crescent.")
-		elseif today < inputDate 
+		elseif today < inputDate
 			println("On ",y,"/",m,"/",d," there will be a waxing crescent.")
 		end
-	else 
-		if today > inputDate 
+	else
+		if today > inputDate
 			println("On ",y,"/",m,"/",d," there was be a waning crescent.")
-		elseif today == inputDate 
+		elseif today == inputDate
 			println("On ",y,"/",m,"/",d," there is a waning crescent.")
-		elseif today < inputDate 
+		elseif today < inputDate
 			println("On ",y,"/",m,"/",d," there will be a waning crescent.")
 		end
 	end
@@ -146,45 +145,45 @@ function quarterMoon(today, jd, inputDate)
 	m = inputDate["month"]
 	d = inputDate["day"]
 	if AstroLib.mphase(jd) > AstroLib.mphase(jd-1)
-		if today > jd 
+		if today > jd
 			println("On ",y,"/",m,"/",d," there was a first quarter.")
-		elseif today == inputDate 
+		elseif today == inputDate
 			println("On ",y,"/",m,"/",d," there is a first quarter.")
-		elseif today < inputDate 
+		elseif today < inputDate
 			println("On ",y,"/",m,"/",d," there will be a first quarter.")
 		end
-	else 
-		if today > jd 
+	else
+		if today > jd
 			println("On ",y,"/",m,"/",d," there was a last quarter.")
 		elseif today == jd
 			println("On ",y,"/",m,"/",d," there is a last quarter.")
-		elseif today < jd 
+		elseif today < jd
 			println("On ",y,"/",m,"/",d," there will be a last quarter.")
 		end
 	end
 	println("And ",  round( AstroLib.mphase(jd)*100) , "% of the Moon illuminated")
-end 
+end
 
 function gibbousMoon(today, jd, inputDate)
 	y = inputDate["year"]
 	m = inputDate["month"]
-	d = inputDate["day"]	
+	d = inputDate["day"]
 	if AstroLib.mphase(jd) > AstroLib.mphase(jd-1)
-		if today > jd 
+		if today > jd
 			println("On ",y,"/",m,"/",d," there was a waxing gibbous.")
-		elseif today == jd 
+		elseif today == jd
 			println("On ",y,"/",m,"/",d," there is a waxing gibbous.")
-		elseif today < jd 
+		elseif today < jd
 			println("On ",y,"/",m,"/",d," there will be a waxing gibbous.")
 		end
 	else
-		if today > jd 
+		if today > jd
 			println("On ",y,"/",m,"/",d," there was a waning gibbous.")
-		elseif today == jd 
+		elseif today == jd
 			println("On ",y,"/",m,"/",d," there is a waning gibbous.")
-		elseif today < jd 
+		elseif today < jd
 			println("On ",y,"/",m,"/",d," there will be a waning gibbous.")
-		end 
+		end
 	end
 	println("And ",  round( AstroLib.mphase(jd)*100), "% of the Moon illuminated")
 end
@@ -193,11 +192,11 @@ function fullMoon(today, jd, inputDate)
 	y = inputDate["year"]
 	m = inputDate["month"]
 	d = inputDate["day"]
-	if today > jd 
+	if today > jd
 		println("On ",y,"/",m,"/",d," there was a full moon.")
-	elseif today == jd 
+	elseif today == jd
 		println("On ",y,"/",m,"/",d," there is a full moon.")
-	elseif today < jd 
+	elseif today < jd
 		println("On ",y,"/",m,"/",d," there will be a full moon.")
 	end
 end

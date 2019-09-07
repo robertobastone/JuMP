@@ -4,28 +4,53 @@ author = "Roberto Bastone"
 email = "robertobastone93@gmail.com"
 version = 1.04
 
+# packages needed
+using Pkg
+pkgs = Pkg.installed();
+using PyPlot
+PyPlotVersion = v"2.8.2"
+using AstroLib
+AstroLibVersion = v"0.4.0"
+using Dates
+
 #########################
 yes = ["Yes","yes","YES","Y","y"]
 no = ["No","no","NO","N","n"]
 
 functionalities = Dict("1" => "date", "2" => "fullmoon", "3" => "lightcurve", "999" => "quit")
+packagesRequirements = Dict("AstroLib"=>AstroLibVersion,"PyPlot"=>PyPlotVersion)
 
 module allJuMPfunctionalities
 	include("JuMP_date.jl")
 	include("JuMP_fullmoon.jl")
+	include("JuMP_lightcurve.jl")
 end
 
 ######################### CODE
 function main()
 	introduction()
-	jumpDescription()
-	chooseFunctionality()
+	checkPassed, thisPackage, requiredVersion = checkPackages()
+	if checkPassed
+		jumpDescription()
+		chooseFunctionality()
+	else
+		printstyled("You need to update " * thisPackage * " to version " * string(requiredVersion) * ", for yours is " * string(pkgs[thisPackage]),color=:red)
+	end
 end
 
 function introduction()
 	printstyled("Welcome to JUlia Moon Phase (JuMP) version " * string(version) * "\n",color=:blue)
 	printstyled("(Author: " * author * ") \n",color=:blue)
 	printstyled("For info - or anything else - please, feel free to reach me at " * email * "\n",color=:blue)
+end
+
+function checkPackages()
+	for  (packages, version) in packagesRequirements
+    	if (pkgs[packages] < version)
+			return false, packages, version
+		end
+	end
+	return true, 0, 0
 end
 
 function jumpDescription()
@@ -46,17 +71,20 @@ function jumpDescription()
 			continue
 		end
 	end
-end 
+end
 
 function chooseFunctionality()
 	while true
-		println("What functionality do you choose?")
+		println("What functionality do you choose? (type quit to terminate execution)")
 		funct = readline()
 		if ( funct == functionalities["1"] )
 			allJuMPfunctionalities.main_date()
 			continue
 		elseif( funct == functionalities["2"])
 			allJuMPfunctionalities.main_fullMoon()
+			continue
+		elseif( funct == functionalities["3"])
+			allJuMPfunctionalities.main_lightCurve()
 			continue
 		elseif( funct == functionalities["999"])
 			printstyled("Terminating... JUlia Moon Phase version " * string(version) *"\n",color=:blue)
