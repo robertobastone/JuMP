@@ -2,7 +2,7 @@
 
 author = "Roberto Bastone"
 email = "robertobastone93@gmail.com"
-version = 1.04
+version = 1.05
 
 # packages needed
 using Pkg
@@ -15,13 +15,14 @@ using Dates
 
 #########################
 
-functionalities = Dict("1" => "date", "2" => "fullmoon", "3" => "lightcurve", "999" => "quit")
+functionalities = Dict("1" => "date", "2" => "fullmoon", "3" => "lightcurve", "4" => "newmoon", "999" => "quit")
 packagesRequirements = Dict("AstroLib"=>AstroLibVersion,"PyPlot"=>PyPlotVersion)
 
 module allJuMPfunctionalities
 	include("JuMP_date.jl")
 	include("JuMP_fullmoon.jl")
 	include("JuMP_lightcurve.jl")
+	include("JuMP_newmoon.jl")
 end
 
 ######################### CODE
@@ -58,6 +59,7 @@ function jumpDescription()
 		if any(x->x==choice, allJuMPfunctionalities.yes)
 			printstyled("By typing \"date\", JuMP will ask you a date (format yyyy/mm/dd) and tell you the moon phase of that given date. \n",color=:blue)
 			printstyled("By typing \"fullmoon\", JuMP will tell you when the next full moon will occur. \n",color=:blue)
+			printstyled("By typing \"newmoon\", JuMP will tell you when the next new moon will occur. \n",color=:blue)
 			printstyled("By typing \"lightcurve\", JuMP will ask you two dates (format yyy/mm/dd) and plot a lightcurve-like plot over that time span. \n",color=:blue)
 			printstyled("Typing \"quit\" will terminate the execution of the script. \n",color=:blue)
 			break
@@ -83,6 +85,9 @@ function chooseFunctionality()
 			continue
 		elseif( funct == functionalities["3"])
 			allJuMPfunctionalities.main_lightCurve()
+			continue
+		elseif( funct == functionalities["4"])
+			allJuMPfunctionalities.main_newMoon()
 			continue
 		elseif( funct == functionalities["999"])
 			printstyled("Terminating... JUlia Moon Phase version " * string(version) *"\n",color=:blue)
