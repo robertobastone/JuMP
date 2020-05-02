@@ -1,7 +1,6 @@
 #########################
 
 author = "Roberto Bastone"
-email = "robertobastone93@gmail.com"
 version = 1.05
 
 # packages needed
@@ -40,7 +39,6 @@ end
 function introduction()
 	printstyled("Welcome to JUlia Moon Phase (JuMP) version " * string(version) * "\n",color=:blue)
 	printstyled("(Author: " * author * ") \n",color=:blue)
-	printstyled("For info - or anything else - please, feel free to reach me at " * email * "\n",color=:blue)
 end
 
 function checkPackages()
