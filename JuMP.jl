@@ -89,7 +89,6 @@ function chooseFunctionality()
 			continue
 		elseif( funct == functionalities["999"])
 			printstyled("Terminating... JUlia Moon Phase version " * string(version) *"\n",color=:blue)
-			printstyled("If you find any bug, please do not hesitate to contact me at " * email * "\n",color=:blue)
 			break
 		else
 			printstyled("Invalid input. \n",color=:yellow)
